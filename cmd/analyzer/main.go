@@ -28,7 +28,7 @@ func main() {
 	// Recursively scan the directory and find all .eml email files
 	emailFiles, err := email.CollectFiles(inputDir)
 	if err != nil {
-		panic(err)
+		log.Fatalf("Failed to collect email files: %v", err)
 	}
 
 	if len(emailFiles) == 0 {
@@ -41,8 +41,6 @@ func main() {
 	results := pipeline.NewPipeline(emailFiles).
 		SetNumberOfWorkers(runtime.NumCPU()).
 		Execute()
-
-	// results := pipeline.Chain(emailFiles, runtime.NumCPU(), true)
 
 	if err := output.WriteCSV(outputCSV, results); err != nil {
 		log.Fatalf("Failed to write results to CSV file: %v", err)
