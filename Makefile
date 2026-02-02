@@ -4,7 +4,7 @@ BINARY_NAME=analyzer
 GO=go
 GOFLAGS=-v
 
-.PHONY: all build clean test run lint fmt
+.PHONY: all build clean test run lint fmt ci
 
 default: build
 	./$(BINARY_NAME) "$(TEST_DATA_DIR)" $(RESULTS)
@@ -20,9 +20,16 @@ clean:
 test:
 	$(GO) test $(GOFLAGS) ./...
 
-run:
+run: mod
 	$(GO) run ./cmd/$(BINARY_NAME) "$(TEST_DATA_DIR)" $(RESULTS)
 	
 mod:
 	$(GO) mod download
 	$(GO) mod tidy
+
+lint:
+	$(GO) fmt ./...
+	$(GO) vet ./...
+
+ci: lint build test
+	@echo "CI checks passed: lint, build and test successful"

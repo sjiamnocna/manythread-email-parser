@@ -1,0 +1,34 @@
+name: Go
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  go-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.22"
+
+      - name: Run CI
+        run: make ci
+
+      - name: Go CI (lint + build + test gate)
+        uses: ghacts/go@v1.0.0
+        with:
+          project-path: .
+          go-version: "1.25"
+          golang-ci-lint-version: latest
+          golang-ci-lint-args: --timeout=10m
+          skip-lint: false
+          skip-build: false
+          skip-test: false
