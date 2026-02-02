@@ -17,14 +17,16 @@ clean:
 	rm -f $(BINARY_NAME)
 	rm -f *.csv
 
-test:
+test: tidy
 	$(GO) test $(GOFLAGS) ./...
 
-run: mod
+run: tidy
 	$(GO) run ./cmd/$(BINARY_NAME) "$(TEST_DATA_DIR)" $(RESULTS)
 	
 mod:
 	$(GO) mod download
+
+tidy:
 	$(GO) mod tidy
 
 lint:

@@ -4,6 +4,22 @@ A high-performance, multithreaded Go application that analyzes email files and g
 
 This tool processes email files (.eml format) from a directory, extracts the text content from each email, and generates a CSV report with statistics about lines and bytes in the text portion of each email.
 
+## Run
+
+> Prepare test data in the `*.eml` format inside the `test_data` directory or provide your own folder with `.eml` files as argument or modify prepared Makefile variable.
+
+> Test run using Makefile, it alrady includes the `go mod download` step.
+
+```bash
+make run
+```
+
+### Default target builds and runs the analyzer on the included test data:
+
+```bash
+make
+```
+
 ## Build
 
 ```bash
@@ -14,7 +30,7 @@ go build -o analyzer ./cmd/analyzer
 make build
 ```
 
-## Usage
+### Usage
 
 ```bash
 ./email-analyzer <input_folder> <output_csv>
