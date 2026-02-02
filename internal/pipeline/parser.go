@@ -1,15 +1,15 @@
 package pipeline
 
 import (
-"fmt"
-"io"
-"mime"
-"mime/multipart"
-"net/mail"
-"os"
-"path/filepath"
-"strings"
-"sync"
+	"fmt"
+	"io"
+	"mime"
+	"mime/multipart"
+	"net/mail"
+	"os"
+	"path/filepath"
+	"strings"
+	"sync"
 )
 
 type Parser struct {
